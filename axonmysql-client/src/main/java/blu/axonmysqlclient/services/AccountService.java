@@ -1,5 +1,6 @@
 package blu.axonmysqlclient.services;
 
+import blu.axonmysqlclient.commands.ChangeAccountHolderCommand;
 import blu.axonmysqlclient.commands.CreateAccountCommand;
 import blu.axonmysqlclient.model.Account;
 import blu.axonmysqlclient.queries.AccountById;
@@ -38,5 +39,10 @@ public class AccountService {
         log.debug("Processing FindById query");
         return queryGateway.query(new AccountById(id),
                 ResponseTypes.instanceOf(Account.class)).get();
+    }
+
+    public CompletableFuture<String> changeAccountHolder(ChangeAccountHolderCommand command) {
+        log.debug("Processing ChangeAccountHolderCommand command: {}", command);
+        return commandGateway.send(command);
     }
 }
