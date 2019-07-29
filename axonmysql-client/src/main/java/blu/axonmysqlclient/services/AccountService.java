@@ -8,11 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
-import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.responsetypes.ResponseTypes;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +20,6 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class AccountService {
 
-    public static List<Account> accounts = new ArrayList<>();
     private final QueryGateway queryGateway;
     private final CommandGateway commandGateway;
 
