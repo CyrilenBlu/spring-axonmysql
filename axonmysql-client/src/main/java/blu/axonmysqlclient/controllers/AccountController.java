@@ -3,6 +3,7 @@ package blu.axonmysqlclient.controllers;
 import blu.axonmysqlclient.commands.ChangeAccountHolderCommand;
 import blu.axonmysqlclient.commands.CreateAccountCommand;
 import blu.axonmysqlclient.model.Account;
+import blu.axonmysqlclient.model.Status;
 import blu.axonmysqlclient.services.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,9 @@ public class AccountController {
 
     @PostMapping("/add")
     public CompletableFuture<String> createAccount(@RequestBody Map<String,String> request) {
-        CreateAccountCommand command = new CreateAccountCommand(UUID.randomUUID().toString(),request.get("accountHolder"));
+        CreateAccountCommand command = new CreateAccountCommand(UUID.randomUUID().toString(),
+                request.get("accountHolder"),
+                String.valueOf(Status.CREATED));
         log.info("Executing command: {}", command);
         return service.createAccount(command);
     }

@@ -4,6 +4,7 @@ import blu.axonmysqlclient.events.AccountCreatedEvent;
 import blu.axonmysqlclient.events.ChangeAccountHolderEvent;
 import blu.axonmysqlclient.exceptions.ElementNotFoundException;
 import blu.axonmysqlclient.model.Account;
+import blu.axonmysqlclient.model.Status;
 import blu.axonmysqlclient.repositories.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class EventProcessor {
 
     @EventHandler
     public void on(AccountCreatedEvent event) {
-        accountRepository.save(new Account(event.getId(), event.getAccountHolder()));
+        accountRepository.save(new Account(event.getId(), event.getAccountHolder(), Status.CREATED));
         log.info("An Account has been created! id={} holder={}", event.getId(), event.getAccountHolder());
     }
 

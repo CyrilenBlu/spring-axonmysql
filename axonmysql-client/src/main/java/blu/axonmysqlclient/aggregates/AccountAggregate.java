@@ -25,7 +25,7 @@ public class AccountAggregate {
 
     @CommandHandler
     public AccountAggregate(CreateAccountCommand command) {
-        AggregateLifecycle.apply(new AccountCreatedEvent(command.getId(), command.getAccountHolder()));
+        AggregateLifecycle.apply(new AccountCreatedEvent(command.getId(), command.getAccountHolder(), command.getStatus()));
     }
 
     @EventSourcingHandler
