@@ -2,6 +2,7 @@ package blu.axonmysqlclient.controllers;
 
 import blu.axonmysqlclient.commands.ChangeAccountHolderCommand;
 import blu.axonmysqlclient.commands.CreateAccountCommand;
+import blu.axonmysqlclient.commands.DisableAccountCommand;
 import blu.axonmysqlclient.model.Account;
 import blu.axonmysqlclient.model.Status;
 import blu.axonmysqlclient.services.AccountService;
@@ -42,10 +43,17 @@ public class AccountController {
         return service.createAccount(command);
     }
 
-    @PatchMapping("/account/changeholder")
-    public CompletableFuture<String> changeAccountHolder(@RequestBody Map<String, String> request) {
-        ChangeAccountHolderCommand command = new ChangeAccountHolderCommand(request.get("id"), request.get("accountHolder"));
+    @PatchMapping("/account/{id}/changeholder")
+    public CompletableFuture<String> changeAccountHolder(@PathVariable("id") String id, @RequestBody Map<String, String> request) {
+        ChangeAccountHolderCommand command = new ChangeAccountHolderCommand(id, request.get("accountHolder"));
         log.info("Executing command: {}", command);
         return service.changeAccountHolder(command);
+    }
+
+    @DeleteMapping("/account/{id}/disable")
+    public CompletableFuture<String> disableAccount(@PathVariable("id") String id) {
+        DisableAccountCommand command = new DisableAccountCommand(id, String.valueOf(Status.DISABLED));
+        log.info("Executing command: {}", command);
+        return service.disableAccount(command);
     }
 }

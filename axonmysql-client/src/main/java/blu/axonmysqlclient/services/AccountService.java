@@ -2,6 +2,7 @@ package blu.axonmysqlclient.services;
 
 import blu.axonmysqlclient.commands.ChangeAccountHolderCommand;
 import blu.axonmysqlclient.commands.CreateAccountCommand;
+import blu.axonmysqlclient.commands.DisableAccountCommand;
 import blu.axonmysqlclient.model.Account;
 import blu.axonmysqlclient.queries.AccountById;
 import blu.axonmysqlclient.queries.AccountList;
@@ -43,6 +44,11 @@ public class AccountService {
 
     public CompletableFuture<String> changeAccountHolder(ChangeAccountHolderCommand command) {
         log.debug("Processing ChangeAccountHolderCommand command: {}", command);
+        return commandGateway.send(command);
+    }
+
+    public CompletableFuture<String> disableAccount(DisableAccountCommand command) {
+        log.debug("Processing DeleteAccountCommand command: {}", command);
         return commandGateway.send(command);
     }
 }

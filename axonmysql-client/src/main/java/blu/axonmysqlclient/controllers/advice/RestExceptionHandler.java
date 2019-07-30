@@ -1,6 +1,7 @@
 package blu.axonmysqlclient.controllers.advice;
 
 import blu.axonmysqlclient.exceptions.ElementNotFoundException;
+import blu.axonmysqlclient.exceptions.InvalidJsonPropertyValueException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage() == null? "Resource not found!" : exception.getMessage(),
                 new HttpHeaders(),
                 HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidJsonPropertyValueException.class)
+    public ResponseEntity<Object> handleInvalidJsonPropertyValueException(Exception e, WebRequest request) {
+        return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 }

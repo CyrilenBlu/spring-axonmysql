@@ -1,6 +1,7 @@
 package blu.axonmysqlclient.components;
 
 import blu.axonmysqlclient.events.AccountCreatedEvent;
+import blu.axonmysqlclient.events.AccountDisabledEvent;
 import blu.axonmysqlclient.events.ChangeAccountHolderEvent;
 import blu.axonmysqlclient.exceptions.ElementNotFoundException;
 import blu.axonmysqlclient.model.Account;
@@ -33,5 +34,15 @@ public class EventProcessor {
             accountRepository.save(optAccount.get());
             log.info("An Account (holder) has been updated! id={} holder={}", event.getId(), event.getAccountHolder());
         } else throw new ElementNotFoundException("Entity not found!");
+    }
+
+    @EventHandler
+    public void on(AccountDisabledEvent event) {
+        Optional<Account> optAccount = accountRepository.findById(event.getId());
+        if (!optAccount.isPresent())
+            throw new ElementNotFoundException("Entity not found!");
+        optAccount.get().setStatus(Status.DISABLED);
+        accountRepository.save(optAccount.get());
+        log.info("An Account (status) has been updated! id={} status={}", event.getId(), event.getStatus());
     }
 }
