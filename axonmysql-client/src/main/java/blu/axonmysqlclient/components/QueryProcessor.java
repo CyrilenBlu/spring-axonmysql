@@ -16,6 +16,7 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
+@SuppressWarnings("unused")
 public class QueryProcessor {
     private final AccountRepository accountRepository;
 

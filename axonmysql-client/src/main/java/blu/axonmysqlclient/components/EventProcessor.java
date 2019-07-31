@@ -17,6 +17,7 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
+@SuppressWarnings("unused")
 public class EventProcessor {
     private final AccountRepository accountRepository;
 

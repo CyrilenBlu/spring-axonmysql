@@ -20,6 +20,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 @Aggregate
 @Getter
 @Slf4j
+@SuppressWarnings("unused")
 public class AccountAggregate {
     @AggregateIdentifier
     private String id;
